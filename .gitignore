@@ -1,0 +1,18 @@
+# Ignore history and logs
+.netrwhist
+main.shada
+*~
+*.swp
+*.swo
+
+# Ignore undo files (if you store them here locally)
+undo/
+backup/
+
+# If you use lazy.nvim, DO NOT ignore lazy-lock.json
+# We want to keep that file to lock plugin versions.
+# However, ignore the actual plugin code downloads:
+lazy/
+
+# If you use Packer (older), ignore the compiled file
+plugin/packer_compiled.lua
