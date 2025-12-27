@@ -1,24 +1,24 @@
 -- ==========================================================================
--- 1. CORE SETTINGS (The basics)
+-- 1. CORE SETTINGS 
 -- ==========================================================================
-vim.g.mapleader = " " -- Sets the "Leader" key to Spacebar (Crucial!)
+vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 vim.opt.number = true         -- Show line numbers
-vim.opt.relativenumber = true -- Relative line numbers (great for jumps)
+vim.opt.relativenumber = true -- Relative line numbers
 vim.opt.mouse = "a"           -- Enable mouse support
 vim.opt.clipboard = "unnamedplus" -- Sync with system clipboard
 vim.opt.breakindent = true    -- Wrap lines with indentation
 vim.opt.undofile = true       -- Save undo history to disk
 vim.opt.ignorecase = true     -- Case insensitive searching...
 vim.opt.smartcase = true      -- ...unless you type a capital letter
-vim.opt.signcolumn = "yes"    -- Always show the sign column (prevents text shift)
+vim.opt.signcolumn = "yes"    -- Always show the sign column
 vim.opt.updatetime = 250      -- Faster completion
 vim.opt.timeoutlen = 300      -- Faster key presses
 vim.opt.termguicolors = true  -- True color support
 
 -- ==========================================================================
--- 2. BOOTSTRAP LAZY.NVIM (The Plugin Manager)
+-- 2. BOOTSTRAP LAZY.NVIM
 -- ==========================================================================
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -34,24 +34,24 @@ vim.opt.rtp:prepend(lazypath)
 -- ==========================================================================
 require("lazy").setup({
 
--- [THEME] Pywal (System Colors)
+-- [THEME] Pywal
   {
     "AlphaTechnolog/pywal.nvim",
     name = "pywal",
-    priority = 1000, -- Load this before everything else
+    priority = 1000,
     config = function()
       require("pywal").setup()
       vim.cmd.colorscheme("pywal")
     end,
   },
 
-  -- [FILE EXPLORER] Neo-tree (Like VSCode sidebar)
+  -- [FILE EXPLORER] Neo-tree
   {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons", -- Requires a Nerd Font
+      "nvim-tree/nvim-web-devicons",
       "MunifTanjim/nui.nvim",
     },
     keys = {
@@ -59,10 +59,9 @@ require("lazy").setup({
     },
   },
 
-  -- [FUZZY FINDER] Telescope (Find files fast)
+  -- [FUZZY FINDER] Telescope
   {
     "nvim-telescope/telescope.nvim",
-    branch = "0.1.x",
     dependencies = { "nvim-lua/plenary.nvim" },
     keys = {
       { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find File" },
@@ -71,7 +70,7 @@ require("lazy").setup({
     },
   },
 
-  -- [SYNTAX] Treesitter (Better highlighting)
+  -- [SYNTAX] Treesitter
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
@@ -83,14 +82,13 @@ require("lazy").setup({
     end,
   },
 
-  -- [STATUS LINE] Lualine (Bottom bar)
-  {
-    "nvim-lualine/lualine.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    opts = { theme = "pywal" },
-  },
+  -- [STATUS LINE] Lualine
+    {
+      "nvim-lualine/lualine.nvim",
+      opts = { theme = "pywal" },
+    },
 
-  -- [KEY HELPER] Which-Key (Shows popup of available keys)
+  -- [KEY HELPER] Which-Key
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
@@ -102,16 +100,16 @@ require("lazy").setup({
   },
 
 -- ========================================================================
-  -- PART 2: THE BRAIN (LSP & Autocomplete)
+  -- PART 2: THE BRAIN
   -- ========================================================================
 
-  -- [INSTALLER] Mason (The "App Store" for Language Servers)
+  -- [INSTALLER] Mason
   {
     "williamboman/mason.nvim",
     opts = {},
   },
 
-  -- [LSP BRIDGE] Mason-LSPConfig (Connects Mason to Neovim)
+  -- [LSP BRIDGE] Mason-LSPConfig
   {
     "williamboman/mason-lspconfig.nvim",
     opts = {
@@ -120,7 +118,7 @@ require("lazy").setup({
     },
   },
 
--- [LSP CONFIG] The Engine (Neovim 0.11 Native Version)
+-- [LSP CONFIG] The Engine
   {
     "neovim/nvim-lspconfig",
     dependencies = { "williamboman/mason-lspconfig.nvim" },
@@ -140,10 +138,10 @@ require("lazy").setup({
         end,
       })
 
-      -- 2. Capabilities (Enable Autocomplete)
+      -- 2. Capabilities
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-      -- 3. Setup Mason & Servers (The NEW Way)
+      -- 3. Setup Mason & Servers
       local mason_lspconfig = require("mason-lspconfig")
       
       mason_lspconfig.setup({
@@ -162,7 +160,7 @@ require("lazy").setup({
     end,
   },
 
-  -- [AUTOCOMPLETE] CMP (The dropdown menu)
+  -- [AUTOCOMPLETE] CMP
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
@@ -201,26 +199,26 @@ require("lazy").setup({
     opts = {},
   },
 
-  -- [QUALITY OF LIFE] Easy Comments (gcc to comment line)
+  -- [QUALITY OF LIFE] Easy Comments
   {
     "numToStr/Comment.nvim",
     opts = {},
   },
 
 -- ========================================================================
-  -- PART 3: THE LOOK & FEEL (Git, Formatting, Visuals)
+  -- PART 3: THE LOOK & FEEL
   -- ========================================================================
 
-  -- [GIT] Gitsigns (Green/Red bars for added/deleted lines)
+  -- [GIT] Gitsigns
   {
     "lewis6991/gitsigns.nvim",
     opts = {},
   },
 
-  -- [FORMATTING] Conform (Auto-format on save)
+  -- [FORMATTING] Conform
   {
     "stevearc/conform.nvim",
-    event = { "BufWritePre" }, -- Load when writing a buffer
+    event = { "BufWritePre" },
     cmd = { "ConformInfo" },
     opts = {
       format_on_save = { timeout_ms = 500, lsp_fallback = true },
@@ -239,23 +237,23 @@ require("lazy").setup({
     },
   },
 
-  -- [VISUALS] Indent Blankline (Vertical lines for code blocks)
+  -- [VISUALS] Indent Blankline
   {
     "lukas-reineke/indent-blankline.nvim",
     main = "ibl", -- Important for v3+
     opts = {},
   },
 -- ========================================================================
-  -- PART 4: DEBUGGING (C/C++/C#)
+  -- PART 4: DEBUGGING
   -- ========================================================================
 
-  -- [DEBUG ADAPTER] nvim-dap ( The Engine )
+  -- [DEBUG ADAPTER] nvim-dap
   {
     "mfussenegger/nvim-dap",
     dependencies = {
-      "rcarriga/nvim-dap-ui", -- The UI (Floating windows)
-      "nvim-neotest/nvim-nio", -- Required by dap-ui
-      "jay-babu/mason-nvim-dap.nvim", -- Connects Mason to DAP
+      "rcarriga/nvim-dap-ui",
+      "nvim-neotest/nvim-nio",
+      "jay-babu/mason-nvim-dap.nvim", 
     },
     config = function()
       local dap = require("dap")
@@ -275,7 +273,7 @@ require("lazy").setup({
         dapui.close()
       end
 
-      -- Keymaps for Debugging (F5, F10, F11)
+      -- Keymaps for Debugging
       vim.keymap.set("n", "<F5>", dap.continue, { desc = "Debug: Start/Continue" })
       vim.keymap.set("n", "<F11>", dap.step_into, { desc = "Debug: Step Into" })
       vim.keymap.set("n", "<F10>", dap.step_over, { desc = "Debug: Step Over" })
@@ -288,8 +286,8 @@ require("lazy").setup({
   {
     "jay-babu/mason-nvim-dap.nvim",
     opts = {
-        ensure_installed = { "codelldb" }, -- Installs C/C++ debugger
-        handlers = {}, -- Auto-setup the handlers
+        ensure_installed = { "codelldb" },
+        handlers = {}, 
     },
   },
 
